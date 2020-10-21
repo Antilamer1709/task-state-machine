@@ -3,10 +3,7 @@ package com.antilamer.state.machine.controller;
 import com.antilamer.state.machine.dto.TaskDTO;
 import com.antilamer.state.machine.service.TaskService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/task")
@@ -19,6 +16,11 @@ public class TaskController {
     @GetMapping("{id}")
     public TaskDTO getTask(@PathVariable("id") Integer id) {
         return taskService.getTask(id);
+    }
+
+    @PutMapping
+    public void createTask(@RequestBody TaskDTO task) {
+        taskService.createTask(task);
     }
 
 }
