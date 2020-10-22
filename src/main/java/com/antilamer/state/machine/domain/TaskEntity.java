@@ -18,6 +18,10 @@ public class TaskEntity {
     @Column
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private StatusEntity status;
+
 
     public static class Builder {
 
