@@ -1,8 +1,11 @@
 package com.antilamer.state.machine.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,5 +19,13 @@ public class StatusEntity {
 
     @Column
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="possible_status",
+            joinColumns = @JoinColumn(name="status_id"),
+            inverseJoinColumns = @JoinColumn(name="possible_status_id")
+    )
+    @Fetch(FetchMode.SUBSELECT)
+    private List<StatusEntity> possibleStatuses;
 
 }
