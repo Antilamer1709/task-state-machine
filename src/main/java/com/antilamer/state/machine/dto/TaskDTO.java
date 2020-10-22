@@ -12,8 +12,11 @@ public class TaskDTO {
 
     private String name;
 
+    private StatusDTO status;
+
     public TaskDTO(TaskEntity taskEntity) {
         this.id = taskEntity.getId();
         this.name = taskEntity.getName();
+        this.status = new StatusDTO(taskEntity.getStatus(), true);
     }
 }

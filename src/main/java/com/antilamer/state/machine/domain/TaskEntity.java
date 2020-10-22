@@ -38,7 +38,23 @@ public class TaskEntity {
         }
 
         public Builder withStatus(StatusEntity status) {
-            task.status = status;
+            if (task.getStatus() != null) {
+                boolean statusNotAllowed = task.getStatus().getPossibleStatuses()
+                        .stream()
+                        .noneMatch(x -> x.getName().equals(status.getName()));
+                if (statusNotAllowed) {
+                    throw new RuntimeException("Status is not allowed!");
+                }
+            }
+
+            task.setStatus(status);
+
+            return this;
+        }
+
+
+        public Builder fromEntity(TaskEntity taskEntity) {
+            task = taskEntity;
 
             return this;
         }

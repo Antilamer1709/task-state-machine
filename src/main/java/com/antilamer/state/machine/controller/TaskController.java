@@ -25,7 +25,7 @@ public class TaskController {
 
     @PostMapping
     public void editTask(@RequestBody TaskDTO task) {
-        taskService.createTask(task);
+        taskService.editTask(task);
     }
 
 }

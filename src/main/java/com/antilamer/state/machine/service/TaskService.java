@@ -1,6 +1,5 @@
 package com.antilamer.state.machine.service;
 
-import com.antilamer.state.machine.domain.StatusEntity;
 import com.antilamer.state.machine.domain.TaskEntity;
 import com.antilamer.state.machine.dto.TaskDTO;
 import com.antilamer.state.machine.enums.Status;
@@ -43,4 +42,16 @@ public class TaskService {
         taskRepo.save(taskEntity);
     }
 
+    @Transactional
+    public void editTask(TaskDTO taskDTO) {
+        TaskEntity taskEntity = taskRepo.getOne(taskDTO.getId());
+
+        taskEntity = new TaskEntity.Builder()
+                .fromEntity(taskEntity)
+                .fromDTO(taskDTO)
+                .withStatus(statusRepo.getOne(taskDTO.getStatus().getId()))
+                .build();
+
+        taskRepo.save(taskEntity);
+    }
 }
