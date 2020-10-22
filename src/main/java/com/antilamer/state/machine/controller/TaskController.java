@@ -19,13 +19,13 @@ public class TaskController {
     }
 
     @PutMapping
-    public void createTask(@RequestBody TaskDTO task) {
-        taskService.createTask(task);
+    public TaskDTO createTask(@RequestBody TaskDTO task) {
+        return taskService.createTask(task);
     }
 
     @PostMapping
-    public void editTask(@RequestBody TaskDTO task) {
-        taskService.editTask(task);
+    public TaskDTO editTask(@RequestBody TaskDTO task) {
+        return taskService.editTask(task);
     }
 
 }

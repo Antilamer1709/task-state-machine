@@ -33,17 +33,18 @@ public class TaskService {
     }
 
     @Transactional
-    public void createTask(TaskDTO taskDTO) {
+    public TaskDTO createTask(TaskDTO taskDTO) {
         TaskEntity taskEntity = new TaskEntity.Builder()
                 .fromDTO(taskDTO)
                 .withStatus(statusRepo.getOne(Status.NEW.getId()))
                 .build();
 
         taskRepo.save(taskEntity);
+        return new TaskDTO(taskEntity);
     }
 
     @Transactional
-    public void editTask(TaskDTO taskDTO) {
+    public TaskDTO editTask(TaskDTO taskDTO) {
         TaskEntity taskEntity = taskRepo.getOne(taskDTO.getId());
 
         taskEntity = new TaskEntity.Builder()
@@ -53,5 +54,6 @@ public class TaskService {
                 .build();
 
         taskRepo.save(taskEntity);
+        return new TaskDTO(taskEntity);
     }
 }
