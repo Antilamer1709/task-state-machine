@@ -1,7 +1,10 @@
 package com.antilamer.state.machine.service;
 
+import com.antilamer.state.machine.domain.StatusEntity;
 import com.antilamer.state.machine.domain.TaskEntity;
 import com.antilamer.state.machine.dto.TaskDTO;
+import com.antilamer.state.machine.enums.Status;
+import com.antilamer.state.machine.repository.StatusRepo;
 import com.antilamer.state.machine.repository.TaskRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskService {
 
     private final TaskRepo taskRepo;
+    private final StatusRepo statusRepo;
 
 
     public TaskDTO getTask(Integer id) {
@@ -33,6 +37,7 @@ public class TaskService {
     public void createTask(TaskDTO taskDTO) {
         TaskEntity taskEntity = new TaskEntity.Builder()
                 .fromDTO(taskDTO)
+                .withStatus(statusRepo.getOne(Status.NEW.getId()))
                 .build();
 
         taskRepo.save(taskEntity);

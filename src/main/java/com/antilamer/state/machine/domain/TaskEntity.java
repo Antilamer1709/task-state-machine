@@ -37,6 +37,12 @@ public class TaskEntity {
             return this;
         }
 
+        public Builder withStatus(StatusEntity status) {
+            task.status = status;
+
+            return this;
+        }
+
         public TaskEntity build() {
             return task;
         }
